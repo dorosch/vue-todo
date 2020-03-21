@@ -20,6 +20,10 @@ services:
     image: frontend:todo
     restart: always
     ports:
-      - 8000:80
+      - 8000:8080
+    env_file:
+      - services/backend/.env
     volumes:
       - ./services/frontend/service:/app
+    depends_on:
+      - backend

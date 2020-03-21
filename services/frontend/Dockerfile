@@ -1,15 +1,9 @@
-FROM node:lts-alpine as build-stage
+FROM node:lts-alpine
 
 WORKDIR /app
 
 COPY service /app
 
-RUN npm install --no-package-lock && \
-    npm run build
+RUN npm install --no-package-lock
 
-
-FROM nginx:stable-alpine
-
-COPY --from=build-stage /app/dist /usr/share/nginx/html
-
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["npm", "run", "serve"]

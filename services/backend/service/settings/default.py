@@ -7,6 +7,8 @@ ROOT_URLCONF = 'api.urls'
 
 SECRET_KEY = 'let me tell secret'
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 ALLOWED_HOSTS = (
@@ -19,6 +21,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
 
     # Required apps
+    'corsheaders',
     'rest_framework',
 
     # User apps
@@ -28,6 +31,7 @@ INSTALLED_APPS = (
 MIDDLEWARE = (
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

@@ -1,5 +1,12 @@
 <template>
   <div>
+    <p v-if="errors.length">
+      <ol>
+        <ul v-for="error in errors" v-bind:key="error.message">
+          {{ error.name }}: {{ error.message }}
+        </ul>
+      </ol>
+    </p>
     <input v-model="message" placeholder="edit me">
     <button v-on:click="addTodo">Click</button>
     <ol>
@@ -13,17 +20,25 @@
 
 
 <script>
+  import API from './http'
+
   export default {
     name: 'App',
     data: function () {
       return {
         index: 0,
         message: '',
-        todos: [
-          { id: this.index++, text: "First" },
-          { id: this.index++, text: "Second" }
-        ]
+        todos: [],
+        errors: []
       }
+    },
+    mounted: function () {
+      API.get('/todo/lists/1/').then(response => {
+        this.todos = response.data.items
+      })
+      .catch(error => {
+        this.errors.push(error)
+      })
     },
     methods: {
       addTodo: function() {
