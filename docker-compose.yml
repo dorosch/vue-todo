@@ -1,0 +1,25 @@
+version: "3"
+
+
+services:
+  backend:
+    build:
+      context: services/backend
+    image: backend:todo
+    restart: always
+    ports:
+      - 8001:8000
+    env_file:
+      - services/backend/.env
+    volumes:
+      - ./services/backend/service:/app
+
+  frontend:
+    build:
+      context: services/frontend
+    image: frontend:todo
+    restart: always
+    ports:
+      - 8000:80
+    volumes:
+      - ./services/frontend/service:/app
