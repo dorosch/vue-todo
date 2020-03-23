@@ -10,7 +10,6 @@
 
 
 <script>
-  import API from '../../api/http'
   import TodoList from './TodoList'
 
   export default {
@@ -18,18 +17,13 @@
     components: {
       TodoList
     },
-    data: function () {
-      return {
-        lists: []
+    computed: {
+      lists: function() {
+        return this.$store.getters.getLists
       }
     },
     mounted: function () {
-      API.get('/todo/lists/').then(response => {
-        this.lists = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
+      this.$store.dispatch('fetchLists')
     }
   }
 </script>
