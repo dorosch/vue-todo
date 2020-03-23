@@ -10,7 +10,7 @@
 
 
 <script>
-  import API from '../../http'
+  import API from '../../api/http'
   import TodoList from './TodoList'
 
   export default {

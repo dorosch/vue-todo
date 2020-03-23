@@ -6,7 +6,7 @@
 
 
 <script>
-  import Todo from './components/todo/Todo'
+  import Todo from './todo/Todo'
 
   export default {
     name: 'App',
