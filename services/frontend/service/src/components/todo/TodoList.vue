@@ -1,6 +1,9 @@
 <template>
   <ul>
-    <h4>{{ list.title }}</h4>
+    <h4>
+      {{ list.title }}
+      <button v-on:click="addedItem">Create</button>
+    </h4>
     <TodoItem
       v-for="item in list.items"
       v-bind:key="item.id"
@@ -20,6 +23,13 @@
     },
     props: [
       'list'
-    ]
+    ],
+    methods: {
+      addedItem: function() {
+        this.$store.dispatch('addedItemForList', {
+          id: this.list.id, text: 'New Item Text'
+        })
+      }
+    }
   }
 </script>
