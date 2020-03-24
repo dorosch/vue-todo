@@ -9,9 +9,9 @@
 <script>
   export default {
     name: 'TodoItem',
-    props: [
-      'item'
-    ],
+    props: {
+      item: Object
+    },
     methods: {
       deleteItem: function() {
         this.$store.dispatch('deleteItemById', {
