@@ -8,62 +8,47 @@
       v-bind:key="item.id"
       v-bind:item="item"
     ></TodoItem>
-    <div v-if="!addItem">
-      <button
-        v-on:click="addItem = !addItem"
-      >
-        +
-      </button>
-    </div>
-    <div v-else>
-      <input
-        v-focus
-        v-model="text"
-        v-on:keyup.enter="addNewItemToList"
-        @blur="addItem = !addItem; text = ''"
-      />
-      <button
-        v-if="text.length >= 1"
-        @mousedown="addNewItemToList"
-      >
-        Add
-      </button>
-    </div>
+    <InlineInput
+      v-if="addItem"
+      @blur="addItem = !addItem"
+      v-bind:callback="addNewItemToList"
+      v-bind:buttonText="`Add`"
+    >
+    </InlineInput>
+    <button
+      v-else
+      v-on:click="addItem = !addItem"
+    >
+      +
+    </button>
   </ul>
 </template>
 
 
 <script>
   import TodoItem from './TodoItem'
+  import InlineInput from '../input/Inline'
 
   export default {
     name: 'TodoList',
     components: {
-      TodoItem
+      TodoItem,
+      InlineInput
     },
     props: {
-      list: Array
+      list: Object
     },
     data: function() {
       return {
-        text: '',
         addItem: false
       }
     },
     methods: {
-      addNewItemToList: function() {
+      addNewItemToList: function(text) {
         this.$store.dispatch('addedItemForList', {
-          id: this.list.id, text: this.text
+          id: this.list.id, text: text
         })
-        this.text = ''
-        this.addItem = !this.addItem
-      }
-    },
-    directives: {
-      focus: {
-        inserted: function (el) {
-          el.focus()
-        }
+        this.addItem = false
       }
     }
   }
