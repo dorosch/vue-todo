@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="lists">
     <TodoList
       v-for="list in lists"
       v-bind:key="list.id"
@@ -27,3 +27,15 @@
     }
   }
 </script>
+
+
+<style>
+  .lists {
+    display: grid;
+    grid-auto-columns: 272px;
+    grid-auto-flow: column;
+    grid-gap: 8px;
+    overflow: scroll;
+    margin: 10px;
+  }
+</style>
