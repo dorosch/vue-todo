@@ -3,14 +3,18 @@
     <div class="list-title">
       {{ list.title }}
     </div>
-    <draggable v-model="list.items" v-bind="dragOptions">
-      <transition-group type="transition" name="flip-item">
+    <draggable
+      class="drag-area"
+      v-model="list.items"
+      group="id"
+      draggable=".item"
+    >  
       <TodoItem
+        class="item"
         v-for="item in list.items"
         v-bind:key="item.id"
         v-bind:item="item"
-      ></TodoItem>
-      </transition-group>
+      ></TodoItem> 
     </draggable>
     <div class="add-item">
       + Add item
@@ -33,21 +37,6 @@
     props: {
       list: Object
     },
-    data: function() {
-      return {
-        addItem: false
-      }
-    },
-    computed: {
-      dragOptions: function() {
-        return {
-          animation: 0,
-          group: "description",
-          disabled: false,
-          ghostClass: "ghost"
-        }
-      }
-    },
     methods: {
       /*
       addNewItemToList: function(text) {
@@ -66,9 +55,6 @@
   .list {
     background-color: rgb(235, 236, 240);
     border-radius: 3px;
-    display: grid;
-    grid-auto-rows: max-content;
-    grid-gap: 10px;
     height: max-content;
     padding: 10px;
   }
@@ -82,11 +68,7 @@
     padding-bottom: 5px;
   }
 
-  .flip-item-move {
-    transition: transform 0.5s;
-  }
-
-  .no-move {
-    transition: transform 0s;
+  .drag-area {
+    min-height: 30px;
   }
 </style>
