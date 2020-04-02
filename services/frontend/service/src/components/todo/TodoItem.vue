@@ -10,15 +10,6 @@
     name: 'TodoItem',
     props: {
       item: Object
-    },
-    methods: {
-      /*
-      deleteItem: function() {
-        this.$store.dispatch('deleteItemById', {
-          id: this.item.id
-        })
-      }
-      */
     }
   }
 </script>

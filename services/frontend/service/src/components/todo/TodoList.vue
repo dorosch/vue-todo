@@ -6,9 +6,10 @@
     <draggable
       class="drag-area"
       v-model="list.items"
+      @change="change"
       group="id"
       draggable=".item"
-    >  
+    >
       <TodoItem
         class="item"
         v-for="item in list.items"
@@ -38,14 +39,21 @@
       list: Object
     },
     methods: {
-      /*
-      addNewItemToList: function(text) {
-        this.$store.dispatch('addedItemForList', {
-          id: this.list.id, text: text
-        })
-        this.addItem = false
+      change: function({added, removed, moved}) {
+        if (added) {
+          this.$store.dispatch('addedItemForList', {
+            id: this.list.id, text: added.element.text
+          })
+        }
+        else if (removed) {
+          this.$store.dispatch('deleteItemById', {
+            id: removed.element.id
+          })
+        }
+        else if (moved) {
+          console.log(moved)
+        }
       }
-      */
     }
   }
 </script>
